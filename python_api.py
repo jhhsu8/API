@@ -17,7 +17,7 @@ for output in outputs:
 
 	if url.find("specimen") != -1: # specimen xml files
 		for specimen in fname_outputs:
-			if specimen["status"] == 'failed': # record the file_content that have failed status
+			if specimen["status"] == 'failed': # record the file_content that has failed status
 				results["specimen_id"] = specimen["id"] 
 				results["specimen_status"] = specimen["status"] 
 				results["specimen_filename"] = specimen["filename"] 
@@ -30,17 +30,16 @@ for output in outputs:
 				if procedure['status'] == 'failed':
 					has_failed = True
 					break # exits out of the first enclosing foreach
-			if has_failed: # record the file_content that have failed status
+			if has_failed: # record the file_content that has failed status
 				results["experiment_id"] = experiment["id"] 
 				results["experiment_status"] = experiment["status"]
 				results["experiment_filename"] = experiment["filename"]
 				results["experiment_logs"] = experiment["logs"]
 				results["experiment_procedures"] = {}
 				for procedure in experiment["experimentProcedures"]:
-					if procedure['status'] == 'failed':
-						results["experiment_procedures"]["experiment_procedure_status"] = procedure["status"]
-						results["experiment_procedures"]["experiment_procedure_name"] = procedure["experimentName"]
-						results["experiment_procedures"]["experiment_procedure_specimen"] = procedure["specimen"]
-						results["experiment_procedures"]["experiment_procedure_logs"] = procedure["logs"]
-						print(json.dumps(results, indent=4))
+					results["experiment_procedures"]["experiment_procedure_status"] = procedure["status"]
+					results["experiment_procedures"]["experiment_procedure_name"] = procedure["experimentName"]
+					results["experiment_procedures"]["experiment_procedure_specimen"] = procedure["specimen"]
+					results["experiment_procedures"]["experiment_procedure_logs"] = procedure["logs"]
+					print(json.dumps(results, indent=4))
 

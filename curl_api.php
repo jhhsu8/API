@@ -24,19 +24,17 @@ foreach ($results as $result) {
                     }
                 }
                 if ($has_failed) {
-                    // record the file_content that have failed status
+                    // record the file_content that has failed status
                     $summary['ID'] = $file_content->id;
                     $summary['status'] = $file_content->status;
                     $summary['filename'] = $file_content->filename;
                     $summary['logs'] = $file_content->logs;
                     // record the experimentProcedures
                     foreach ($file_content->experimentProcedures as $experimentProcedure) {
-                        if ($experimentProcedure->status === 'failed') { // that have failed
-                            $summary['experimentProcedures'][$experimentProcedure->id]['status'] = $experimentProcedure->status;
-                            $summary['experimentProcedures'][$experimentProcedure->id]['experimentName'] = $experimentProcedure->experimentName;
-                            $summary['experimentProcedures'][$experimentProcedure->id]['specimen'] = $experimentProcedure->specimen;
-                            $summary['experimentProcedures'][$experimentProcedure->id]['log'] = $experimentProcedure->logs;
-                        }
+                        $summary['experimentProcedures'][$experimentProcedure->id]['status'] = $experimentProcedure->status;
+                        $summary['experimentProcedures'][$experimentProcedure->id]['experimentName'] = $experimentProcedure->experimentName;
+                        $summary['experimentProcedures'][$experimentProcedure->id]['specimen'] = $experimentProcedure->specimen;
+                        $summary['experimentProcedures'][$experimentProcedure->id]['log'] = $experimentProcedure->logs;
                     }
                     print json_encode($summary, JSON_PRETTY_PRINT);
                 }
@@ -44,7 +42,7 @@ foreach ($results as $result) {
         }
     } else { // specimen xml files
         foreach ($file_contents as $file_content) {
-            // record the file_content that have failed status
+            // record the file_content that has failed status
             if ($file_content->status === 'failed') {
                 $summary['ID'] = $file_content->id;
                 $summary['status'] = $file_content->status;
