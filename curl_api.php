@@ -6,7 +6,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$url);
 // do not include headers in the response
 curl_setopt($ch, CURLOPT_HEADER, 0);
-// return the result to a variable
+// return the results to a variable
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 // get the results
 $results_json = curl_exec($ch);
@@ -39,13 +39,6 @@ foreach ($results as $result) {
                         $summary['experimentProcedures'][$experimentProcedure->id]['experimentName'] = $experimentProcedure->experimentName;
                         $summary['experimentProcedures'][$experimentProcedure->id]['specimen'] = $experimentProcedure->specimen;
                         $summary['experimentProcedures'][$experimentProcedure->id]['log'] = $experimentProcedure->logs;
-                        if ($experimentProcedure->status === 'failed') { // procedure that has failed status
-                            $summary['experimentProcedures'][$experimentProcedure->id]['status'] = $experimentProcedure->status;
-                            $summary['experimentProcedures'][$experimentProcedure->id]['experimentName'] = $experimentProcedure->experimentName;
-                            $summary['experimentProcedures'][$experimentProcedure->id]['specimen'] = $experimentProcedure->specimen;
-                            $summary['experimentProcedures'][$experimentProcedure->id]['log'] = $experimentProcedure->logs;
-                        }
-
                     }
                     print json_encode($summary, JSON_PRETTY_PRINT);
                 }
