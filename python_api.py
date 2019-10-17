@@ -5,6 +5,7 @@ import os, json, urllib.request
 # global variables
 results = {}
 has_failed = False
+
 #open url
 data = urllib.request.urlopen("http://api.mousephenotype.org/tracker/centre/xml?centre=Ucd").read()
 #convert json to python object (list)
