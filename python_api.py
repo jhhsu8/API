@@ -2,17 +2,21 @@
 
 import os, json, urllib.request
 
+# global variables
 results = {}
 has_failed = False
-
+#open url
 data = urllib.request.urlopen("http://api.mousephenotype.org/tracker/centre/xml?centre=Ucd").read()
+#convert json to python object (list)
 outputs = json.loads(data)
 
 #loop through the filenames we got and work with each of them.
 for output in outputs:
 	fname = output['filename']
 	url = os.path.join('http://api.mousephenotype.org/tracker/xml/',fname)
+	#open url
 	data = urllib.request.urlopen(url).read()
+	#convert json to python object (list)
 	fname_outputs = json.loads(data)
 
 	if url.find("specimen") != -1: # specimen xml files
@@ -42,4 +46,3 @@ for output in outputs:
 					results["experiment_procedures"]["experiment_procedure_specimen"] = procedure["specimen"]
 					results["experiment_procedures"]["experiment_procedure_logs"] = procedure["logs"]
 					print(json.dumps(results, indent=4))
-
