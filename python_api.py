@@ -1,4 +1,4 @@
-# Retrieve UCD data at IMPC
+# Retrieve UCD data at IMPC with failed statuses
 
 import os, json, urllib.request
 
