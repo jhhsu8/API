@@ -1,5 +1,5 @@
 <?php
-// Retrieve UCD data at IMPC
+// Retrieve UCD data at IMPC with failed statuses
 $url= "http://api.mousephenotype.org/tracker/centre/xml?centre=Ucd";
 // initialize cURL
 $ch = curl_init();
