@@ -1,23 +1,24 @@
-# Retrieve UCD data at IMPC with failed statuses
+import requests, os, json
 
-import os, json, urllib.request
+# Retrieve UCD data at IMPC with failed statuses
 
 # global variables
 results = {}
 has_failed = False
-#open url
-data = urllib.request.urlopen('http://api.mousephenotype.org/tracker/centre/xml?centre=Ucd').read()
-#convert json to python object (list)
-outputs = json.loads(data)
 
-#loop through the filenames we got and work with each of them.
+# sends a GET request to the specified url
+response = requests.get('http://api.mousephenotype.org/tracker/centre/xml?centre=Ucd')
+#convert json to an object 
+outputs = response.json()
+
+#loop through the filenames
 for output in outputs:
 	fname = output['filename']
 	url = os.path.join('http://api.mousephenotype.org/tracker/xml/',fname)
-	#open url
-	data = urllib.request.urlopen(url).read()
-	#convert json to python object (list)
-	fname_outputs = json.loads(data)
+	# sends a GET request to the specified url
+	response = requests.get(url)
+	#convert json to an object
+	fname_outputs = response.json()
 
 	if url.find('specimen') != -1: # specimen xml files
 		for specimen in fname_outputs:
@@ -26,6 +27,7 @@ for output in outputs:
 				results['specimen_status'] = specimen['status'] 
 				results['specimen_filename'] = specimen['filename'] 
 				results['specimen_logs'] = specimen['logs']
+				#convert an object to a string
 				print(json.dumps(results, indent=4))
 
 	else: # experiment xml files
@@ -45,4 +47,5 @@ for output in outputs:
 					results['experiment_procedures']['experiment_procedure_name'] = procedure['experimentName']
 					results['experiment_procedures']['experiment_procedure_specimen'] = procedure['specimen']
 					results['experiment_procedures']['experiment_procedure_logs'] = procedure['logs']
+					#convert an object to a string
 					print(json.dumps(results, indent=4))
