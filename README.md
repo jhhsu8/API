@@ -1,1 +1,1 @@
-Programs that retrieve IMPC UCD data with failed statuses
+This repository contains sample programs that connect to APIs to retrieve data.
